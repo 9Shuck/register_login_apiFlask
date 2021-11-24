@@ -17,3 +17,17 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+    
+    def create(self):
+            db.session.add(self)
+            db.session.commit()
+    
+    @classmethod
+    def get_by_email(cls, email):
+        account = cls.query.filter_by(email=email).one_or_none()
+        return account
+
+    @classmethod
+    def get_by_id(cls, id):
+        account = cls.query.filter_by(id=id).one_or_none()
+        return account
